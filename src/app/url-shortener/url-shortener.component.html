@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="content">
+    <form [formGroup]="urlShortenerForm" (ngSubmit)="onShortenUrl()">
+      <input type="text" placeholder="Input The URL" formControlName="url" />
+      <button type="submit" [disabled]="urlShortenerForm.invalid">
+        Shorten Url
+      </button>
+    </form>
+
+    <div *ngIf="urlResultLoader$ | async">
+      <div *ngIf="!(errorResponse$ | async)">
+        <div *ngIf="urlResult$ | async as result">
+          <p><b>Short Url :</b> &nbsp;{{result.short_link}}</p>
+          <p><b>Short Url 2 :</b> &nbsp; {{result.short_link2}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="errorResponse$ | async as errorResponse">
+      <p class="error">&#42;{{errorResponse}}</p>
+    </div>
+  </div>
+</div>
